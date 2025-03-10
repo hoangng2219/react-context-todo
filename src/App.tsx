@@ -1,9 +1,12 @@
 import { Button, Input, Tabs } from "antd";
 import { useEffect, useReducer, useState } from "react";
 import "./App.css";
-import TaskList from "./components/TaskList";
+// import TaskList from "./components/TaskList";
 import { Task, taskReducer, TASKS_KEY } from "./reducers/taskReducer";
 import type { TabsProps } from "antd";
+import TaskCompleted from "./components/TaskCompleted";
+import TaskAll from "./components/TaskAll";
+import CreateForm from "./components/CreateForm";
 
 function App() {
   const [tasks, dispatch] = useReducer(taskReducer, []);
@@ -50,43 +53,20 @@ function App() {
     {
       key: "all",
       label: "All",
-      children: <TaskList tasks={filteredTasks} dispatch={dispatch} />,
+      children: <TaskAll />
     },
     {
       key: "complete",
       label: "Complete",
-      children: (
-        <>
-          <Input
-            placeholder="Search tasks"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ marginBottom: 10 }}
-          />
-          <TaskList
-            activeTab={activeTab}
-            tasks={completedTasks}
-            dispatch={dispatch}
-            showDelete
-          />
-        </>
-      ),
+      children: <TaskCompleted />,
     },
   ];
 
   return (
     <>
       <h1 className="text-3xl font-black mb-8">Todo Tracker</h1>
-      <div className="flex gap-2">
-        <Input
-          placeholder="Add new task"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-        />
-        <Button type="primary" onClick={addTask}>
-          Add Task
-        </Button>
-      </div>
+
+      <CreateForm />
 
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
 
@@ -112,13 +92,13 @@ function App() {
           />
         </Tabs.TabPane>
       </Tabs> */}
-      {activeTab === "all" && (
+      {/* {activeTab === "all" && (
         <div className="flex justify-end">
           <Button danger onClick={deleteAll}>
             Delete All Tasks
           </Button>
         </div>
-      )}
+      )} */}
     </>
   );
 }
