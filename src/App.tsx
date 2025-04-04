@@ -7,10 +7,10 @@ import CreateForm from "./components/CreateForm";
 import TaskAll from "./components/TaskAll";
 import TaskCompleted from "./components/TaskCompleted";
 import { Task, taskReducer, TASKS_KEY } from "./reducers/taskReducer";
+import TodoWithContext from "./components/TodoContext/TodoWithContext";
 
 function App() {
   const [tasks, dispatch] = useReducer(taskReducer, []);
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("all");
 
 
@@ -50,6 +50,9 @@ function App() {
       <CreateForm  dispatch={dispatch}/>
 
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
+
+
+      <TodoWithContext />
 
    
     </>
